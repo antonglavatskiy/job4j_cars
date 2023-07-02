@@ -12,7 +12,8 @@ public class UserUsage {
                 .configure().build();
         try (SessionFactory sf = new MetadataSources(registry)
                 .buildMetadata().buildSessionFactory()) {
-            var userRepository = new HQLUserRepository(sf);
+            var crudRepository = new CrudRepository(sf);
+            var userRepository = new HQLUserRepository(crudRepository);
             var user = new User();
             user.setLogin("admin");
             user.setPassword("admin");
