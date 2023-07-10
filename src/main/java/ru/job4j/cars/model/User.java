@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -21,5 +23,9 @@ public class User {
 
     @EqualsAndHashCode.Include
     private String login;
+
     private String password;
+
+    @ManyToMany(mappedBy = "users")
+    private List<Post> posts = new ArrayList<>();
 }
