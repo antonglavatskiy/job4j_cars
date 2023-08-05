@@ -35,4 +35,8 @@ public class Post {
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
 }
