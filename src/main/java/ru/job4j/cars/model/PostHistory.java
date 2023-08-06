@@ -6,21 +6,20 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "owner")
-public class Owner {
+@Table(name = "history_post")
+public class PostHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    private LocalDateTime startAt;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private LocalDateTime endAt;
 }
