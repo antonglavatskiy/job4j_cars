@@ -15,4 +15,7 @@
     <include file="scripts/008_ddl_create_owner_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/009_ddl_create_history_owner_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/010_ddl_add_column_car_id_auto_post_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/011_ddl_create_image_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/012_ddl_create_manufacturer_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/013_ddl_add_column_manufacturer_id_car_table.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -29,4 +29,8 @@ public class Car {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id")
     private List<OwnerHistory> owners = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "manufacturer_id", foreignKey = @ForeignKey(name = "MANUFACTURER_ID_FK"))
+    private Manufacturer manufacturer;
 }

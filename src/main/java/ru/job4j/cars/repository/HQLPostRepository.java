@@ -3,8 +3,9 @@ package ru.job4j.cars.repository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Post;
-import ru.job4j.cars.model.User;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,7 +33,34 @@ public class HQLPostRepository implements PostRepository {
 
     @Override
     public Optional<Post> findById(int id) {
-        return crudRepository.optional("from Post p WHERE p.id = :fId",
+        return crudRepository.optional("FROM Post p WHERE p.id = :fId",
                 Post.class, Map.of("fId", id));
+    }
+
+    @Override
+    public List<Post> findPostsLastDay() {
+        return crudRepository.query("""
+                FROM Post p WHERE p.created >= :fCreated
+                """, Post.class,
+                Map.of("fCreated", LocalDateTime.now().toLocalDate().atStartOfDay()));
+    }
+
+    @Override
+    public List<Post> findPostsWithImage() {
+        return crudRepository.query("""
+                      SELECT DISTINCT p
+                      FROM Post p
+                      JOIN FETCH p.images
+                      ORDER BY p.created
+                      """, Post.class);
+    }
+
+    @Override
+    public List<Post> findPostsByManufacturerName(String name) {
+        return crudRepository.query("""
+                FROM Post p WHERE p.car.manufacturer.name = :fName
+                ORDER BY p.created
+                """,
+                Post.class, Map.of("fName", name));
     }
 }
