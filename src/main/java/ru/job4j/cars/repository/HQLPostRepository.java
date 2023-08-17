@@ -42,7 +42,7 @@ public class HQLPostRepository implements PostRepository {
         return crudRepository.query("""
                 FROM Post p WHERE p.created >= :fCreated
                 """, Post.class,
-                Map.of("fCreated", LocalDateTime.now().toLocalDate().atStartOfDay()));
+                Map.of("fCreated", LocalDateTime.now().minusDays(1)));
     }
 
     @Override
@@ -50,7 +50,8 @@ public class HQLPostRepository implements PostRepository {
         return crudRepository.query("""
                       SELECT DISTINCT p
                       FROM Post p
-                      JOIN FETCH p.images
+                      LEFT JOIN FETCH p.images i
+                      WHERE i.post_id IS NOT NULL
                       ORDER BY p.created
                       """, Post.class);
     }
