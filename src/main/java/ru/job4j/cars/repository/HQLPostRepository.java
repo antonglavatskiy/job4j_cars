@@ -48,10 +48,8 @@ public class HQLPostRepository implements PostRepository {
     @Override
     public List<Post> findPostsWithImage() {
         return crudRepository.query("""
-                      SELECT DISTINCT p
                       FROM Post p
-                      LEFT JOIN FETCH p.images i
-                      WHERE i.post_id IS NOT NULL
+                      WHERE size (p.images) > 0
                       ORDER BY p.created
                       """, Post.class);
     }
